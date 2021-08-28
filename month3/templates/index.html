@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>MY LITTLE BLOG</title>
+</head>
+<body>
+    <p>HELLO, EVERYONE THIS MY LITTLE BLOG</p>
+    <ul>
+        {% for i in posts %}
+            <li>
+                <p>Title: {{ i.title }}</p>
+                <p><img src="{{ i.image.url }}" alt=""></p>
+                <p>Description: {{ i.description }}</p>
+                <p>hashtags: {{ i.hashtags }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
