@@ -2,6 +2,8 @@ from django.contrib.auth import login, authenticate
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
+from allauth.account.views import LoginView
+
 # Create your views here.
 from .models import BlogUser
 
@@ -38,3 +40,7 @@ def login_view(request):
             return redirect('blogs')
 
         return render(request, 'login.html', context={"message": "Ne pravilnyi login ili parol"})
+
+
+class MyLoginView(LoginView):
+    template_name = 'login.html'

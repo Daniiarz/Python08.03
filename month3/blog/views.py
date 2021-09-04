@@ -4,10 +4,11 @@ from datetime import datetime
 from django.conf import settings
 from django.http import HttpResponse, FileResponse
 from django.views import generic
-
+from rest_framework.generics import ListAPIView
 # Create your views here.
 from django.shortcuts import render
 
+from .forms import BlogSerializer
 from .models import Student, Blog, Comment
 
 
@@ -72,3 +73,6 @@ def create_post(request):
         return render(request, "create-post.html")
 
 
+class BlogListApiView(ListAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer

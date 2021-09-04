@@ -10,4 +10,5 @@ urlpatterns = [
     path('random_number/', views.random_number),
     path('image/', views.image_view),
     path('students/', views.student_view),
+    path('data/', views.BlogListApiView.as_view()),
 ]
