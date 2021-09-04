@@ -3,18 +3,34 @@ from datetime import datetime
 
 from django.conf import settings
 from django.http import HttpResponse, FileResponse
-
+from django.views import generic
 
 # Create your views here.
 from django.shortcuts import render
 
-from .models import Student, Blog
+from .models import Student, Blog, Comment
 
 
-def hello_view(request):
-    blog_posts = Blog.objects.all()
-    context = {'posts': blog_posts}
-    return render(request, 'index.html', context)
+class BlogView(generic.ListView):
+    template_name = "index.html"
+    queryset = Blog.objects.all()
+    context_object_name = "posts"
+
+
+class BlogDetailView(generic.DetailView):
+    template_name = "detail-post.html"
+    queryset = Blog.objects.all()
+    context_object_name = "post"
+
+    def get_context_data(self, **kwargs):
+        context = super(BlogDetailView, self).get_context_data(**kwargs)
+        blog_id = self.kwargs['pk']
+        comments = Comment.objects.filter(blog_id=blog_id)
+        context['comments'] = comments
+        return context
+
+    def post(self, request, *args, **kwargs):
+        pass
 
 
 def date_view(request):
@@ -54,3 +70,5 @@ def create_post(request):
         return HttpResponse("Blog post created successfully!")
     if request.method == "GET":
         return render(request, "create-post.html")
+
+

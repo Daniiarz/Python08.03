@@ -1,10 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-$END$
+    <div style="text-align: center; ">
+        <p>Title: {{ post.title }}</p>
+        <p><img src="{{ post.image.url }}" alt=""></p>
+        <p>Description: {{ post.description }}</p>
+        <p>hashtags: {{ post.hashtags }}</p>
+        <div>
+            <h3>Comments:</h3>
+            <ul style="list-style: none">
+                {% for  i in comments %}
+                    <li>
+                        <div>
+                            <p>
+                                {{ i.text }}
+                            </p>
+                            <span>
+                              {{ i.datetime }}
+                            </span>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
 </body>
 </html>
